@@ -462,3 +462,33 @@ canvas { display: block; width: 100%; height: auto; background-color: #e2e8f0; }
   .pk-zone-c, .pk-zone-side, .pk-zone-front { width: 100%; height: 90px; }
   .large-box, .tall-box { height: 130px; }
 }
+/* =========================================================
+   THAY ĐỔI CSS CHO NÚT MENU (GIỐNG FACEBOOK)
+   ========================================================= */
+.fb-hamburger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px; /* Chiều rộng nút */
+  height: 18px; /* Chiều cao nút */
+  margin-right: 15px;
+  padding: 0;
+}
+
+/* 3 thanh ngang dày, không bo tròn nhiều */
+.fb-bar {
+  width: 100%;
+  height: 3.5px;
+  background-color: #050505; /* Màu đen đậm */
+  border-radius: 2px;
+}
+
+/* =========================================================
+   VIỀN VÀNG KHI CLICK CHỌN BÃI XE
+   ========================================================= */
+.selected-lot {
+  box-shadow: 0 0 0 4px #ffc107, 0 4px 10px rgba(0,0,0,0.3);
+}
