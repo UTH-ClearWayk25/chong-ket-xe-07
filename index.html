@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UTH Smart Parking Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+
+  <!-- BỘ PHẦN ĐĂNG NHẬP (GIỮ NGUYÊN) -->
+  <div id="auth-section" class="auth-wrapper">
+    <div id="login-box" class="auth-box">
+      <div class="logo-title">
+        <span class="uth-green">UTH</span>
+        <span class="uth-red">UNIVERSITY<br>OF TRANSPORT<br>HO CHI MINH CITY</span>
+      </div>
+      <h3>Đăng nhập</h3>
+      <div class="input-group">
+        <input type="text" id="studentId" placeholder="Mã số sinh viên" />
+        <input type="password" id="password" placeholder="Mật khẩu" />
+      </div>
+      <div class="forgot-pwd-container">
+        <span class="forgot-link" onclick="showForgotPassword()">Quên mật khẩu?</span>
+      </div>
+      <button class="btn-primary" onclick="login()">Đăng nhập</button>
+    </div>
+
+    <div id="forgot-password-box" class="auth-box hidden">
+      <div class="logo-title">🚗 Khôi phục mật khẩu</div>
+      <div id="forgot-step-1" class="forgot-step active">
+        <p class="step-desc">Nhập số điện thoại đã đăng ký để nhận mã OTP.</p>
+        <div class="input-group">
+          <input type="tel" id="phoneNumber" placeholder="Nhập số điện thoại" />
+        </div>
+        <button class="btn-primary" onclick="sendOTP()">Gửi mã xác nhận</button>
+      </div>
+      <div id="forgot-step-2" class="forgot-step hidden">
+        <p class="step-desc">Mã xác minh (OTP) đã được gửi đến thiết bị của bạn.</p>
+        <div class="input-group">
+          <input type="text" id="otpCode" placeholder="Mã OTP (Test: 123456)" maxlength="6" />
+        </div>
+        <button class="btn-primary" onclick="verifyOTP()">Xác nhận mã</button>
+      </div>
+      <div id="forgot-step-3" class="forgot-step hidden">
+        <p class="step-desc">Tạo mật khẩu mới cho tài khoản.</p>
+        <div class="input-group">
+          <input type="password" id="newPassword" placeholder="Mật khẩu mới" />
+          <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu mới" />
+        </div>
+        <button class="btn-primary" onclick="resetPassword()">Đổi mật khẩu</button>
+      </div>
+      <button class="btn-secondary mt-15" onclick="showLogin()">← Quay lại</button>
+    </div>
+  </div>
+
+  <!-- GIAO DIỆN CHÍNH -->
+  <div id="dashboard-section" class="dashboard-wrapper hidden">
+    
+    <!-- Thanh Header kiểu Facebook trên Mobile -->
+    <header class="mobile-header">
+      <button class="fb-hamburger-btn" onclick="var sb=document.getElementById('sidebar'); if(sb.classList.contains('open')){sb.classList.remove('open')}else{sb.classList.add('open')}">☰</button>
+      <div class="mobile-logo-text">UTH Parking</div>
+    </header>
+
+    <!-- Sidebar Menu ngăn kéo ẩn/hiện -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="uth-green">UTH</span>
+        <span class="uth-red">UNIVERSITY<br>OF TRANSPORT<br>HO CHI MINH CITY</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" onclick="navigate('home', this); document.getElementById('sidebar').classList.remove('open')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Trang chủ
+        </a>
+        <a href="#" class="nav-item" onclick="navigate('traffic', this); document.getElementById('sidebar').classList.remove('open')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          Cao điểm
+        </a>
+        <a href="#" class="nav-item" onclick="showParkingModal(); document.getElementById('sidebar').classList.remove('open')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M9 17V7h4a3 3 0 0 1 0 6H9"></path></svg>
+          Bãi xe
+        </a>
+        <a href="#" class="nav-item" onclick="navigate('alt', this); document.getElementById('sidebar').classList.remove('open')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Bãi thay thế
+        </a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfx7YX1sPyhCxaGO6K4AVlu1ZFULS69qXXh3UWXNvWEJdsU-Q/viewform" target="_blank" class="nav-item" onclick="document.getElementById('sidebar').classList.remove('open')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Phản hồi ý kiến
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="logout(); document.getElementById('sidebar').classList.remove('open')">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- KHU VỰC NỘI DUNG CHÍNH CHỨA ẢNH -->
+    <main class="main-content">
+      <div class="header-status">
+        <h2 class="page-title" id="page-title">Dashboard</h2>
+        <div class="status-indicator" id="main-status">
+          <span class="dot green"></span> <span id="status-text">Thông thoáng - Có thể gửi xe</span>
+        </div>
+      </div>
+
+      <!-- MỤC TRANG CHỦ: HIỂN THỊ ẢNH SỐ 1 (BẢN ĐỒ KHUÔN VIÊN TRƯỜNG) -->
+      <div id="map-view" class="chart-box">
+        <div class="chart-title">Biểu đồ khuôn viên</div>
+        <div class="canvas-wrapper" style="text-align: center; padding: 5px;">
+          <img src="images/parking_alt.jpg" alt="Biểu đồ khuôn viên" style="width: 100%; max-width: 100%; height: auto; border-radius: 6px; display: block; margin: 0 auto;" />
+          <canvas id="map" width="750" height="850" style="display: none;"></canvas>
+          <div id="tooltip" class="tooltip"></div>
+        </div>
+      </div>
+
+      <!-- MỤC BÃI THAY THẾ: ĐÃ CẬP NHẬT HIỂN THỊ ẢNH SỐ 2 -->
+      <div id="alt-view" class="chart-box hidden alt-container">
+        <div class="alt-detail-card">
+          <h2 class="alt-title">KHÔNG GỬI ĐƯỢC XE THÌ SAO?</h2>
+          <div class="alt-warning">
+            <span class="red-dot"></span> Vượt quá giới hạn! Hiện chỉ còn gợi ý gửi xe ngoài trường.
+          </div>
+          <button class="btn-green-outline">Xem gợi ý thay thế</button>
+          
+          <!-- ================= ĐÃ ĐỔI THÀNH ẢNH THỨ 2 Ở ĐÂY ================= -->
+          <img src="images/bai_thay_the.jpg" alt="Bãi xe ngoài trường" class="alt-detail-img" onerror="this.src='https://via.placeholder.com/400x250/115e59/ffffff?text=Anh+Thu+2+Chua+Upload'"/>
+          <!-- Nếu bạn muốn đổi tên file ảnh khác, chỉ cần sửa chữ images/bai_thay_the.jpg ở trên thành tên file của bạn -->
+          
+          <div class="alt-info-text">
+            <p><strong>1. Địa điểm gửi xe ngoài trường:</strong><br>Địa chỉ: 24/5/3 Đường Võ Oanh, Phường 25, Quận Bình Thạnh, TP.HCM</p>
+            <p><strong>2. Đề xuất di chuyển</strong> bằng phương tiện công cộng: xe Bus, xe công nghệ,...</p>
+          </div>
+          <button class="btn-green-solid" onclick="backToHome()">← Quay lại trang chính</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL ĐẶT CHỖ (GIỮ NGUYÊN) -->
+  <div id="parking-modal" class="modal hidden">
+    <div class="modal-box">
+      <span class="close-button" onclick="closeParkingModal()">×</span>
+      <h3>Tương tác bãi xe</h3>
+      <div class="controls">
+        <div class="form-group">
+          <label>Chọn bãi xe:</label>
+          <select id="parking-lot">
+            <option value="">Không chọn</option>
+            <option value="lot1">Sân trường (Khu A)</option>
+            <option value="lot2">Nhà xe 1 (Cổng 1)</option>
+            <option value="lot3">Nhà xe 2 (Cổng 2)</option>
+            <option value="lot4">Khu vực C</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Thời gian dự kiến đến:</label>
+          <input type="datetime-local" id="arrival-time" />
+        </div>
+        <div class="form-group">
+          <label>Biển số xe:</label>
+          <input type="text" id="plate-number" placeholder="VD: 59A-123.45" />
+        </div>
+        <div class="modal-actions">
+          <button class="btn-primary" onclick="predictParking()">Dự đoán</button>
+          <button class="btn-success" onclick="bookParking()">Đặt chỗ</button>
+          <button class="btn-danger" onclick="cancelBooking()">Hủy</button>
+        </div>
+        <div id="modal-status-msg" class="status-msg"></div>
+        <div class="danger-notice">⚠️ Chỗ đặt sẽ hết hạn sau 15 phút!</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
