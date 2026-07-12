@@ -341,3 +341,124 @@ canvas { display: block; width: 100%; height: auto; background-color: #e2e8f0; }
     height: 120px;
   }
 }
+/* =========================================================
+   HEADER MOBILE & MENU (GIỐNG ẢNH 1)
+   ========================================================= */
+.mobile-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+.fb-hamburger-btn {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.mobile-logo-text {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1877f2; /* Màu xanh biển Facebook */
+}
+
+/* Lớp phủ đen mờ khi mở Sidebar trên điện thoại */
+.menu-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+.menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hiệu ứng trượt Sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px; /* Giấu sang trái */
+    width: 260px;
+    height: 100vh;
+    z-index: 999;
+    transition: left 0.3s ease-in-out;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  }
+  .sidebar.open {
+    left: 0; /* Trượt ra */
+  }
+}
+
+/* =========================================================
+   GIAO DIỆN BÃI XE CÓ TƯƠNG TÁC
+   ========================================================= */
+.pk-form-area {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+.pk-row { margin-bottom: 15px; }
+.pk-row label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 14px; }
+.pk-input-text {
+  width: 100%; max-width: 300px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.pk-actions {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+}
+.btn-action.btn-blue {
+  background-color: #1877f2;
+  color: white; border: none; padding: 10px 15px;
+  border-radius: 6px; cursor: pointer; font-weight: 600;
+}
+.btn-action.btn-blue:active { transform: scale(0.95); }
+
+/* Bản đồ bãi xe */
+.pk-map-area { display: flex; flex-direction: column; gap: 20px; padding: 10px; }
+.pk-zone { cursor: pointer; transition: 0.2s; }
+.pk-zone:hover { transform: scale(1.02); }
+
+.pk-green-box {
+  background-color: #008000;
+  color: white; font-weight: bold; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  border-radius: 4px; padding: 15px;
+  transition: background 0.3s ease; /* Hiệu ứng chuyển màu mượt */
+}
+
+/* Viền vàng bọc quanh bãi đang được Click chọn */
+.selected-lot {
+  box-shadow: 0 0 0 4px #ffc107, 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Kích thước */
+.pk-zone-c { align-self: flex-end; width: 220px; height: 80px; }
+.pk-middle-row { display: flex; justify-content: space-between; gap: 20px; }
+.pk-zone-main { flex: 1; }
+.large-box { height: 200px; font-size: 20px; }
+.pk-zone-side { width: 140px; }
+.tall-box { height: 200px; }
+.pk-zone-front { align-self: center; width: 250px; height: 80px; }
+
+@media (max-width: 768px) {
+  .pk-middle-row { flex-direction: column; }
+  .pk-zone-c, .pk-zone-side, .pk-zone-front { width: 100%; height: 90px; }
+  .large-box, .tall-box { height: 130px; }
+}
