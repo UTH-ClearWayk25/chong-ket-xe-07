@@ -572,3 +572,77 @@ canvas { display: block; width: 100%; height: auto; background-color: #e2e8f0; }
     z-index: 999;
   }
 }
+/* =========================================================
+   ĐIỀU CHỈNH ẨN HIỆN HEADER CHO PC VÀ ĐIỆN THOẠI
+   ========================================================= */
+/* Bắt buộc ẩn thanh Menu Mobile (≡ UTH Parking) khi ở trên máy tính PC */
+@media (min-width: 769px) {
+  .mobile-header {
+    display: none !important;
+  }
+}
+
+/* Các tùy chỉnh khi màn hình là điện thoại (dưới 768px) */
+@media (max-width: 768px) {
+  /* Style cho thanh Header Điện thoại (Giống ảnh 2 & 3) */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Viền đổ bóng nhẹ để tách lớp */
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Font chữ logo trên điện thoại */
+  .mobile-logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1877f2; /* Màu xanh tương đồng */
+    margin-left: 10px;
+  }
+
+  .main-content {
+    padding: 0;
+    width: 100vw;
+  }
+  
+  /* Bố cục thanh trạng thái (Ngang y như hình 2) */
+  .header-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: transparent;
+    border-bottom: none;
+  }
+
+  .page-title {
+    font-size: 22px;
+    margin: 0;
+  }
+
+  .status-indicator {
+    font-size: 15px;
+    text-align: right;
+  }
+
+  .content-body {
+    padding: 0 15px 20px 15px;
+  }
+  
+  .chart-box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Đảm bảo Menu khi trượt ra đè lên toàn bộ web (Giống ảnh 3) */
+  .sidebar {
+    z-index: 1000;
+  }
+  .menu-overlay {
+    z-index: 999;
+  }
+}
