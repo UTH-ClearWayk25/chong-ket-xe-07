@@ -204,3 +204,140 @@ canvas { display: block; width: 100%; height: auto; background-color: #e2e8f0; }
 .btn-green-solid:hover, .btn-green-outline:hover {
   background: #0f766e;
 }
+/* =========================================================
+   GIAO DIỆN BÃI XE (PARKING VIEW MỚI)
+   ========================================================= */
+.pk-form-area {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+
+.pk-row {
+  margin-bottom: 15px;
+}
+
+.pk-row label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.pk-input-text {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.pk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.btn-action.btn-blue {
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-action.btn-blue:hover {
+  background-color: #166fe5;
+}
+
+.pk-note {
+  color: #666;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.pk-warning {
+  color: #d93025;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Khu vực vẽ sơ đồ bãi xanh */
+.pk-map-area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+}
+
+.pk-green-box {
+  background-color: #008000; /* Màu xanh lá chuẩn theo ảnh */
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 15px;
+}
+
+/* Căn chỉnh vị trí các bãi cho giống bản đồ */
+.pk-zone-c {
+  align-self: flex-end; /* Nằm bên phải */
+  width: 200px;
+  height: 80px;
+}
+
+.pk-middle-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.pk-zone-main {
+  flex: 1; /* Chiếm phần lớn không gian */
+}
+
+.large-box {
+  height: 200px;
+  font-size: 18px;
+}
+
+.pk-zone-side {
+  width: 120px;
+}
+
+.tall-box {
+  height: 200px;
+  writing-mode: horizontal-tb;
+}
+
+.pk-zone-front {
+  align-self: center; /* Nằm ở giữa phía dưới */
+  width: 250px;
+  height: 80px;
+}
+
+/* Căn chỉnh lại trên màn hình điện thoại cho phù hợp */
+@media (max-width: 768px) {
+  .pk-middle-row {
+    flex-direction: column;
+  }
+  .pk-zone-c, .pk-zone-side, .pk-zone-front {
+    width: 100%;
+    align-self: center;
+    height: 80px;
+  }
+  .large-box, .tall-box {
+    height: 120px;
+  }
+}
